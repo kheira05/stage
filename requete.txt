@@ -1,0 +1,31 @@
+SELECT users.id ,users.fname ,users.Iname ,users.age ,users.mail ,users.adresse_ip ,users.num_inventaire_fixe, users.num_inventaire_affecte, users.origine_poste_affecte, GROUP_CONCAT(jt_libelle) as jour_teletravail, structure.libelle as structure, implantation.libelle as implantation FROM users 
+					INNER JOIN implantation ON users.id_implantation = implantation.im_id
+					INNER JOIN structure ON users.id_structure = structure.id_stru
+					inner JOIN jour on users.id = j_u_id
+                    inner join jour_teletravail on j_jt_id = jt_id 
+
+
+  if (i =="0" && s == "0") {
+	  	//affichage sans filtre
+	    xmlhttp.open("GET","getuser.php?",true);
+	    xmlhttp.send();
+	    console.log("sans filtre");
+	  
+	  } else if(i !="0" && s == "0"){
+	   //affichage avec filtre pour implantation ("i")
+	    xmlhttp.open("GET","getuser.php?i="+i,true);
+	    xmlhttp.send();
+	    console.log("avec implantation sans structure");
+	  }
+	  else if(i =="0" && s != "0"){
+	  	 xmlhttp.open("GET","getuser.php?s="+s,true);
+	    xmlhttp.send();
+	    console.log("avec structure sans implantation");
+
+	  }
+	  else if(i !="0" && s != "0"){
+	  	 xmlhttp.open("GET","getuser.php?s="+s"&i="+i,true);
+	    xmlhttp.send();
+	    console.log("avec implantation et structure");
+
+	  }
